@@ -1,0 +1,16 @@
+requests>=2.26.0
+urllib3>=1.26.5
+certifi>=2019.11.28
+beautifulsoup4>=4.9.3
+firebase_admin>=5.0.1
+Flask>=2.0.1
+geckodriver_autoinstaller==0.1.0
+google-cloud-pubsub>=2.4.1
+gunicorn>=20.0.4
+mock==4.0.3
+# protobuf==3.17.3
+pytz==2021.1
+# grpcio==1.30.0
+# grpcio-tools==1.30.0
+datetime>=4.3
+timedelta>=1.0.0
