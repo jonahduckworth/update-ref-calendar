@@ -84,11 +84,13 @@ def update():
     games = {}
     count = 0
 
-    for game in json2['tr']['td']:
+    for game in json2['tr']:
         games[count] = game
         count += 1
 
-    pretty = json.dumps(games[1], indent=4, sort_keys=True)
+    
+    
+    pretty = json.dumps(games[1]['td'], indent=4, sort_keys=True)
 
     # print(pretty)
 
