@@ -71,9 +71,6 @@ def update():
 
     soup = bs4(response.text, 'html.parser')
 
-    # remove everything before: <table class="edit-delete" id="ref_games">
-    # remove everything after: </table>
-
     table = soup.find('table', {'class': 'edit-delete', 'id': 'ref_games'})
     table = str(table)
     table = table.split('<table class="edit-delete" id="ref_games">')[1]
@@ -88,11 +85,10 @@ def update():
         games[count] = game
         count += 1
 
+    games.pop(0)
     
-    
-    pretty = json.dumps(games[1]['td'], indent=4, sort_keys=True)
-
-    # print(pretty)
-
+    for game in games:
+        pretty = json.dumps(games[game]['td'], indent=4, sort_keys=True)
+        print(pretty)
 
     return ("", 204)
