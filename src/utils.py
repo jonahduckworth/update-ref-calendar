@@ -18,8 +18,8 @@ def clean_table(games):
         print('start_time: ', start_time)
         print('end_time:   ', end_time)
 
-        clean_games[game] = {'date': date}
-        clean_games[game].update({'time': games[game]['td'][1]['_value']})
+        clean_games[game] = {'start': {'dateTime': start_time, 'timeZone': 'Canada/Mountain'}}
+        clean_games[game]['end'] = {'dateTime': end_time, 'timeZone': 'Canada/Mountain'}
         clean_games[game].update({'location': games[game]['td'][2]['a'][0]['_value']})
         clean_games[game].update({'category': games[game]['td'][3]['_value']})
         clean_games[game].update({'type': games[game]['td'][4]['_value']})
