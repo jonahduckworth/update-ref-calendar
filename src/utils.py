@@ -11,9 +11,9 @@ def get_table_from_html(soup):
 def clean_table(games):
     clean_games = {}
     for game in games:
-        date = games[game]['td'][0]['_value']
-        date = date.split(' ', 1)[1]
-        date = datetime.strptime(date, '%b-%d-%y').strftime('%Y-%m-%d')
+        date = get_datetime(games[game]['td'][0]['_value'])
+        start_time = get_start_time(games[game]['td'][1]['_value'])
+        end_time = get_end_time(games[game]['td'][1]['_value'])
 
         clean_games[game] = {'date': date}
         clean_games[game].update({'time': games[game]['td'][1]['_value']})
@@ -53,3 +53,20 @@ def clean_table(games):
 
     return clean_games
 
+def get_datetime(date):
+    date = date.split(' ', 1)[1]
+    date = datetime.strptime(date, '%b-%d-%y').strftime('%Y-%m-%d')
+
+    return date
+
+def get_start_time(time):
+    start_time = time.split(' - ', 1)[0]
+    start_time = datetime.strptime(start_time, '%I:%M %p').strftime('%H:%M')
+
+    return start_time
+
+def get_end_time(time):
+    end_time = time.split(' - ', 1)[1]
+    end_time = datetime.strptime(end_time, '%I:%M %p').strftime('%H:%M')
+
+    return end_time
