@@ -1,3 +1,5 @@
+from datetime import datetime
+
 def get_table_from_html(soup):
     table = soup.find('table', {'class': 'edit-delete', 'id': 'ref_games'})
     table = str(table)
@@ -9,7 +11,11 @@ def get_table_from_html(soup):
 def clean_table(games):
     clean_games = {}
     for game in games:
-        clean_games[game] = {'date': games[game]['td'][0]['_value']}
+        date = games[game]['td'][0]['_value']
+        date = date.split(' ', 1)[1]
+        date = datetime.strptime(date, '%b-%d-%y').strftime('%Y-%m-%d')
+
+        clean_games[game] = {'date': date}
         clean_games[game].update({'time': games[game]['td'][1]['_value']})
         clean_games[game].update({'location': games[game]['td'][2]['a'][0]['_value']})
         clean_games[game].update({'category': games[game]['td'][3]['_value']})
@@ -46,3 +52,4 @@ def clean_table(games):
             clean_games[game].update({'supervisor': None})
 
     return clean_games
+
