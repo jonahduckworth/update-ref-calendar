@@ -12,8 +12,11 @@ def clean_table(games):
     clean_games = {}
     for game in games:
         date = get_datetime(games[game]['td'][0]['_value'])
-        start_time = get_start_time(games[game]['td'][1]['_value'])
-        end_time = get_end_time(games[game]['td'][1]['_value'])
+        start_time = get_start_time(date, games[game]['td'][1]['_value'])
+        end_time = get_end_time(date, games[game]['td'][1]['_value'])
+
+        print('start_time: ', start_time)
+        print('end_time:   ', end_time)
 
         clean_games[game] = {'date': date}
         clean_games[game].update({'time': games[game]['td'][1]['_value']})
@@ -59,14 +62,16 @@ def get_datetime(date):
 
     return date
 
-def get_start_time(time):
+def get_start_time(date, time):
     start_time = time.split(' - ', 1)[0]
     start_time = datetime.strptime(start_time, '%I:%M %p').strftime('%H:%M')
+    start_time = date + 'T' + start_time + ':00-07:00'
 
     return start_time
 
-def get_end_time(time):
+def get_end_time(date, time):
     end_time = time.split(' - ', 1)[1]
     end_time = datetime.strptime(end_time, '%I:%M %p').strftime('%H:%M')
+    end_time = date + 'T' + end_time + ':00-07:00'
 
     return end_time
