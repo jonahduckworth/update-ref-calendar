@@ -16,8 +16,8 @@ def clean_table(games):
         end_time = get_end_time(date, games[game]['td'][1]['_value'])
         summary = get_summary(games[game]['td'])
 
-        clean_games[game] = {'start': {'dateTime': start_time, 'timeZone': 'Canada/Mountain'}}
-        clean_games[game]['end'] = {'dateTime': end_time, 'timeZone': 'Canada/Mountain'}
+        clean_games[game] = {'start': {'dateTime': start_time}}
+        clean_games[game]['end'] = {'dateTime': end_time}
         clean_games[game].update({'summary': games[game]['td'][3]['_value']})
         clean_games[game].update({'location': games[game]['td'][2]['a'][0]['_value']})
         clean_games[game].update({'description': summary})
@@ -34,6 +34,7 @@ def get_start_time(date, time):
     start_time = time.split(' - ', 1)[0]
     start_time = datetime.strptime(start_time, '%I:%M %p').strftime('%H:%M')
     start_time = date + 'T' + start_time + ':00-07:00'
+    start_time = datetime.strptime(start_time, '%Y-%m-%dT%H:%M:%S%z').isoformat('T')
 
     return start_time
 
@@ -41,6 +42,7 @@ def get_end_time(date, time):
     end_time = time.split(' - ', 1)[1]
     end_time = datetime.strptime(end_time, '%I:%M %p').strftime('%H:%M')
     end_time = date + 'T' + end_time + ':00-07:00'
+    end_time = datetime.strptime(end_time, '%Y-%m-%dT%H:%M:%S%z').isoformat('T')
 
     return end_time
 

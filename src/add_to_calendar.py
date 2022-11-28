@@ -32,4 +32,4 @@ def update():
     # pretty = json.dumps(clean_games, indent=4, sort_keys=False)
     # print(pretty)
 
-    return ("", 204)
+    return clean_games
