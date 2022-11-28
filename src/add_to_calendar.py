@@ -29,9 +29,7 @@ def update():
 
     clean_games = utils.clean_table(games)
 
-    pretty = json.dumps(clean_games, indent=4, sort_keys=False)
-    print(pretty)
-
-
+    # pretty = json.dumps(clean_games, indent=4, sort_keys=False)
+    # print(pretty)
 
     return ("", 204)

@@ -14,45 +14,13 @@ def clean_table(games):
         date = get_datetime(games[game]['td'][0]['_value'])
         start_time = get_start_time(date, games[game]['td'][1]['_value'])
         end_time = get_end_time(date, games[game]['td'][1]['_value'])
-
-        print('start_time: ', start_time)
-        print('end_time:   ', end_time)
+        summary = get_summary(games[game]['td'])
 
         clean_games[game] = {'start': {'dateTime': start_time, 'timeZone': 'Canada/Mountain'}}
         clean_games[game]['end'] = {'dateTime': end_time, 'timeZone': 'Canada/Mountain'}
+        clean_games[game].update({'summary': games[game]['td'][3]['_value']})
         clean_games[game].update({'location': games[game]['td'][2]['a'][0]['_value']})
-        clean_games[game].update({'category': games[game]['td'][3]['_value']})
-        clean_games[game].update({'type': games[game]['td'][4]['_value']})
-        clean_games[game].update({'visiting_team': games[game]['td'][5]['_value']})
-        clean_games[game].update({'home_team': games[game]['td'][6]['_value']})
-        try:
-            clean_games[game].update({'ref1': games[game]['td'][7]['_value']})
-        except:
-            clean_games[game].update({'ref1': None})
-        try:
-            clean_games[game].update({'ref2': games[game]['td'][8]['_value']})
-        except:
-            clean_games[game].update({'ref2': None})
-        try:
-            clean_games[game].update({'lines1': games[game]['td'][9]['_value']})
-        except:
-            clean_games[game].update({'lines1': None})
-        try:
-            clean_games[game].update({'lines2': games[game]['td'][10]['_value']})
-        except:
-            clean_games[game].update({'lines2': None})
-        try:
-            clean_games[game].update({'house1': games[game]['td'][11]['_value']})
-        except:
-            clean_games[game].update({'house1': None})
-        try:
-            clean_games[game].update({'house2': games[game]['td'][12]['_value']})
-        except:
-            clean_games[game].update({'house2': None})
-        try:
-            clean_games[game].update({'supervisor': games[game]['td'][13]['_value']})
-        except:
-            clean_games[game].update({'supervisor': None})
+        clean_games[game].update({'description': summary})
 
     return clean_games
 
@@ -75,3 +43,45 @@ def get_end_time(date, time):
     end_time = date + 'T' + end_time + ':00-07:00'
 
     return end_time
+
+def get_summary(game):
+    summary = 'Game Type: ' + game[4]['_value'] + '\n' + 'Visiting Team: ' + game[5]['_value'] + '\n' + 'Home Team: ' + game[6]['_value'] + '\n'
+    ref1, ref2, lines1, lines2, house1, house2, supervisor = '', '', '', '', '', '', ''
+
+    try:
+        ref1 = game[7]['_value']
+        summary += 'Referee: ' + ref1 + '\n'
+    except:
+        pass
+    try:
+        ref2 = game[8]['_value']
+        summary += 'Referee: ' + ref2 + '\n'
+    except:
+        pass
+    try:
+        lines1 = game[9]['_value']
+        summary += 'Linesman: ' + lines1 + '\n'
+    except:
+        pass
+    try:
+        lines2 = game[10]['_value']
+        summary += 'Linesman: ' + lines2 + '\n'
+    except:
+        pass
+    try:
+        house1 = game[11]['_value']
+        summary += 'Linesman: ' + house1 + '\n'
+    except:
+        pass
+    try:
+        house2 = game[12]['_value']
+        summary += 'Linesman: ' + house2 + '\n'
+    except:
+        pass
+    try:
+        supervisor = game[13]['_value']
+        summary += 'Supervisor: ' + supervisor + '\n'
+    except:
+        pass
+
+    return summary
