@@ -47,7 +47,7 @@ def get_end_time(date, time):
     return end_time
 
 def get_summary(game):
-    summary = 'Game Type: ' + game[4]['_value'] + '\n' + 'Visiting Team: ' + game[5]['_value'] + '\n' + 'Home Team: ' + game[6]['_value'] + '\n'
+    summary = 'Game Type: ' + game[4]['_value'] + '\n' + 'Home Team: ' + game[6]['_value'] + '\n' + 'Visiting Team: ' + game[5]['_value'] + '\n'
     ref1, ref2, lines1, lines2, house1, house2, supervisor = '', '', '', '', '', '', ''
 
     try:

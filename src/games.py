@@ -1,11 +1,10 @@
 from bs4 import BeautifulSoup as bs4
 import requests
-import json
 import html_to_json
 import config
 import utils
 
-def update():
+def get():
     url = config.GAMES_URL
     cookies = config.getCookies
     headers = config.getHeaders
@@ -24,12 +23,8 @@ def update():
         games[count] = game
         count += 1
 
-    # don't need item at first index
     games.pop(0)
 
     clean_games = utils.clean_table(games)
-
-    # pretty = json.dumps(clean_games, indent=4, sort_keys=False)
-    # print(pretty)
 
     return clean_games
