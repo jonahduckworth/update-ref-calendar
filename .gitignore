@@ -1,5 +1,5 @@
-src/token.py
-src/credentials.py
+src/token.json
+src/credentials.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
