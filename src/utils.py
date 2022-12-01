@@ -21,6 +21,7 @@ def clean_table(games):
         clean_games[game].update({'summary': games[game]['td'][3]['_value']})
         clean_games[game].update({'location': games[game]['td'][2]['a'][0]['_value']})
         clean_games[game].update({'description': summary})
+        clean_games[game].update(no_reminders())
 
     return clean_games
 
@@ -87,3 +88,12 @@ def get_summary(game):
         pass
 
     return summary
+
+def no_reminders():
+    reminders = {
+        'reminders': {
+            'useDefault': 'false',
+            'overrides': []
+        }
+    }
+    return reminders
